@@ -5,6 +5,18 @@ function addNewUser(name, email, password) {
     })
 }
 
+function checkEmail(email) {
+    database.query(`SELECT * FROM users WHERE email = "${content.email}"`, (err, rows) => {
+        if(err) throw err
+        if (rows.length == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    })
+}
+
 module.exports = {
-    addNewUser
+    addNewUser,
+    checkEmail
 }

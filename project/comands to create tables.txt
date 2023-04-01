@@ -3,6 +3,7 @@ CREATE TABLE `users` (
 	`name` VARCHAR(100) NOT NULL,
 	`email` VARCHAR(100) NOT NULL,
 	`password` VARCHAR(50) NOT NULL,
+	`section` INT,
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 

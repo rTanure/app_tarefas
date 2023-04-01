@@ -4,7 +4,7 @@ const app = express()
 const bodyParser = require('body-parser')
 
 const { database } = require("./database/config.js")
-const { addNewUser } = require('./database/functions.js')
+const { addNewUser, checkEmail } = require('./database/functions.js')
 
 app.use(bodyParser.json())
 
@@ -16,12 +16,22 @@ app.get(`/`, (req, res)=>{
 })
 
 app.post("/user/new", (req, res) => {
-    const response = req.body
-    database.query(`SELECT * FROM users WHERE email = "${response.email}"`, (err, rows) => {
+    const content = req.body
+    if(!checkEmail(content.email)) {
+        res.send(addNewUser(content.name, content.email, content.password))
+    } else {
+        res.send("Usuário já cadastrado na base de dados!")
+    }
+})
+
+app.post("/user/login", (req,res) => {
+    const content = req.body
+
+    if(checkEmail())
+    database.query(`SELECT * FROM users WHERE email = "${content.email}"`, (err, rows) => {
         if(err) throw err
-        console.log(rows.length)
         if (rows.length == 0) {
-            res.send(addNewUser(response.name, response.email, response.password))
+            res.send(addNewUser(content.name, content.email, content.password))
         } else {
             res.send("Usuário já cadastrado na base de dados!")
         }
