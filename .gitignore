@@ -1,15 +1,2 @@
 /node_modules
 .env
-
-# Arquivo de log
-# npm-debug.log
-
-# Arquivos de configuração do sistema
-# .DS_Store
-# Thumbs.db
-
-# Arquivos de build
-# /build
-
-# Variáveis de ambiente
-# .env
