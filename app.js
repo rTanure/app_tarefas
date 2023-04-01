@@ -4,37 +4,24 @@ const app = express()
 const bodyParser = require('body-parser')
 
 const { database } = require("./database/config.js")
-const { addNewUser, checkEmail } = require('./database/functions.js')
+
+
 
 app.use(bodyParser.json())
 
 app.get(`/`, (req, res)=>{
-    database.query("SHOW COLUMNS FROM tasks", (err, rows) => {
+    database.query("SELECT * FROM users", (err, rows) => {
         if (err) throw res.send(err)
         res.send(rows)
     })
 })
 
 app.post("/user/new", (req, res) => {
-    const content = req.body
-    if(!checkEmail(content.email)) {
-        res.send(addNewUser(content.name, content.email, content.password))
-    } else {
-        res.send("Usuário já cadastrado na base de dados!")
-    }
-})
-
-app.post("/user/login", (req,res) => {
-    const content = req.body
-
-    if(checkEmail())
-    database.query(`SELECT * FROM users WHERE email = "${content.email}"`, (err, rows) => {
+    const data = req.body
+    database.query(`INSERT INTO users VALUES (null, "${data.name}", "${data.email}", "${data.password}", 8457)`, (err, rows)=>{
         if(err) throw err
-        if (rows.length == 0) {
-            res.send(addNewUser(content.name, content.email, content.password))
-        } else {
-            res.send("Usuário já cadastrado na base de dados!")
-        }
+        res.send(rows)
+        console.log("Chegou aqui")
     })
 })
 
