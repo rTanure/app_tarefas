@@ -23,20 +23,20 @@ const user = {
 
     add: async (name, email, password) => {
         try {
-                const query = `
-                    INSERT INTO users VALUES (
-                        null,
-                        "${name}",
-                        "${email}",
-                        "${password}",
-                        null
-                    )
-                `
-                let result = await database.promise().query(query)
-                return(result)
+            const query = `
+                INSERT INTO users VALUES (
+                    null,
+                    "${name}",
+                    "${email}",
+                    "${password}",
+                    null
+                )
+            `
+            let result = await database.promise().query(query)
+            return result
             
         } catch (error) {
-            console.error("Erro ao adicionar um usuario: " + error)
+            return error
         }
     },
 
@@ -51,7 +51,7 @@ const user = {
         } catch (error) {
             console.error("Erro ao capturar usario pelo email: " + error)
         }
-    }
+    },
 }
 
 

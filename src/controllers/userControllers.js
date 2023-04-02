@@ -14,9 +14,30 @@ const userControllers = {
         const body = req.body
         if(await userControllers.checkIfUserExists(body.email) == 0) {
             usersBase.add(body.name, body.email, body.password)
-            res.send("Usuario adicionado com sucesso!")
+            res.send({
+                message: "Usuario registrado com sucesso!",
+                status: "success"
+            })
         } else {
-            res.send("Email já cadastrado!")
+            res.send({
+                message: "Email já cadastrado",
+                status: "alert"
+            })
+        }
+    },
+
+    loginUser: async (req, res) => {
+        const body = req.body
+        console.log("Chaegou aqui")
+        if(await userControllers.checkIfUserExists(body.email) == 1) {
+            const data = await usersBase.searchByEmail(body.email)
+            if(body.password == data[0].password) {
+                res.send("Login Realizado!")
+            } else {
+                res.send("Senha incorreta!")
+            }
+        } else {
+            res.send("Email não cadastrado!")
         }
     }
 } 
