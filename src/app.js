@@ -9,9 +9,7 @@ app.use(bodyParser.json())
 const userControllers = require("./controllers/userControllers.js")
 
 
-// ADD A NEW USER
-app.post("/user/new", userControllers.registerNewUser)
-
+app.post("/user/register", userControllers.registerNewUser)
 app.post("/user/login", userControllers.loginUser)
 
 
