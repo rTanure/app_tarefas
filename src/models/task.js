@@ -1,6 +1,7 @@
+const { response } = require("express")
 const { database } = require("../../config/database")
 
-const task = {
+const taskBase = {
     createTable: async () => {
         try {
             const query = `
@@ -40,7 +41,37 @@ const task = {
         } catch (error) {
             console.error("Erro ao adicionar nova tarefa")
         }
+    },
+
+    updateTask: async (body) => {
+        return new Promise((resolve, reject) => {
+            const query = `UPDATE tasks SET
+                title = "${body.title}",
+                description = "${body.description}",
+                due_date = "${body.due_date}",
+                is_completed = ${body.is_completed}
+            WHERE id = ${body.task_id};`
+
+            database.query(query, (error, rows) => {
+                if(error) throw error
+                resolve(rows)
+            })
+        })
+    },
+
+    getUserId: async (task_id) => {
+        return new Promise((resolve) => {
+            const query = `SELECT user_id FROM tasks WHERE id = ${task_id}`
+            database.query(query, (error, rows) => {
+                if(error) throw error
+                if(rows.length == 0) {
+                    resolve(false)
+                } else {
+                    resolve(rows[0].user_id)
+                }
+            })
+        })
     }
 }
 
-module.exports = task
+module.exports = taskBase

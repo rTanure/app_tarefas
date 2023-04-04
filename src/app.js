@@ -13,6 +13,7 @@ app.post("/user/register", userControllers.registerNewUser)
 app.post("/user/login", userControllers.loginUser)
 
 app.post("/task/new", taskControllers.addTask)
+app.post("/task/update", taskControllers.updateTask)
 
 
 const PORT = 8080
