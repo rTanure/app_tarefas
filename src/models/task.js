@@ -21,4 +21,26 @@ const task = {
             console.error("Erro ao criar tabela tasks: " + error)
         }
     },
+
+    addTaks: async (body) => {
+        try {
+            const query = `INSERT INTO tasks VALUES (
+                null,
+                "${body.title}",
+                "${body.description}",
+                "${body.due_date}",
+                0,
+                "${body.user_id}"
+            )`
+
+            database.query(query, (err, rows) => {
+                // return(rows)
+                // Retornar Promise aqui
+            })
+        } catch (error) {
+            console.error("Erro ao adicionar nova tarefa")
+        }
+    }
 }
+
+module.exports = task

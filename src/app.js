@@ -7,10 +7,12 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
 const userControllers = require("./controllers/userControllers.js")
-
+const taskControllers = require("./controllers/taskControllers.js")
 
 app.post("/user/register", userControllers.registerNewUser)
 app.post("/user/login", userControllers.loginUser)
+
+app.post("/task/new", taskControllers.addTask)
 
 
 const PORT = 8080

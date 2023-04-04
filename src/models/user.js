@@ -56,6 +56,21 @@ const user = {
         }
     },
 
+    // PESQUISA UM USUARIO PELO EMAIL
+    searchById: async (id) => {
+        try {
+            return new Promise((resolve, reject) => {
+                const query = `SELECT * FROM users WHERE id = ${id}`
+                database.query(query, (error, rows) => {
+                    if(error) throw error
+                    resolve(rows[0]);
+                })
+            })
+        } catch (error) {
+            console.error("Erro ao capturar usario pelo id: " + error)
+        }
+    },
+
     // PESQUISA UM USUARIO PELO SEU CODIGO DE SEÇÃO
     searchBySection: async (section) => {
         try {
@@ -74,7 +89,6 @@ const user = {
     // ATUALIZA O CODIGO DE SEÇÃO DE UM USUARIO
     updateUserSectionCode: async (userId, newSection) => {
         try {
-            console.log(userId)
             return new Promise((resolve, reject) => {
                 const query = `UPDATE users SET section = ${newSection} WHERE id = ${userId}`
                 database.query(query, (error, rows) => {
