@@ -1,6 +1,6 @@
 const { database } = require('../../config/database')
 
-const user = {
+const userBase = {
     createTable: async () => { // Código de criação da tabela users
         try {
             const query = `
@@ -63,6 +63,9 @@ const user = {
                 const query = `SELECT * FROM users WHERE id = ${id}`
                 database.query(query, (error, rows) => {
                     if(error) throw error
+                    if(rows.length == 0) {
+                        resolve(false)
+                    }
                     resolve(rows[0]);
                 })
             })
@@ -103,4 +106,4 @@ const user = {
 }
 
 
-module.exports = user
+module.exports = userBase
