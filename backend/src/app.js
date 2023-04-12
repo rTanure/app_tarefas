@@ -6,6 +6,11 @@ const app = express()
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
+// CORS config
+const cors = require('cors')
+const { corsOptions } = require('../config/cors')
+app.use(cors(corsOptions))
+
 const userControllers = require("./controllers/userControllers.js")
 const taskControllers = require("./controllers/taskControllers.js")
 

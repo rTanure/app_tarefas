@@ -1,0 +1,9 @@
+.content-limiter {
+  max-width: 1400px;
+  width: 98%;
+  margin: 0 auto;
+}
+
+a:hover {
+  text-decoration: underline;
+}
